@@ -1,6 +1,8 @@
 # 12-homework
 
-//
+12주차 table 
+
+
 //  TableViewController.swift
 //  Table
 //
