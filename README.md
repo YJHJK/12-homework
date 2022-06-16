@@ -10,7 +10,7 @@
 //
 
 import UIKit
-
+//앱 시작 시 기본적으로 나타낼 목록
 var items = ["책 구매", "철수와 약속", "스터디 준비하기"]
 var itemsImageFile = ["cart.jpeg", "clock.jpeg", "pencil.png"]
 
@@ -28,24 +28,25 @@ class TableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
     
+    //뷰가 노출될 때마다 리스트의 데이터를 다시 불러옴
     override func viewWillAppear(_ animated: Bool) {
         tvListView.reloadData()
     }
     
 
     // MARK: - Table view data source
-
+    //테이블 안의 섹션 개수를 1로 설정함
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    //섹션당 열의 개수를 전달
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return items.count
     }
 
-    
+    //items와 itemslmageFile의 값을 셀에 삽입함
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
 
@@ -65,9 +66,11 @@ class TableViewController: UITableViewController {
     */
 
     // Override to support editing the table view.
+    //목록 삭제 함수
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            //item와 itemslmageFile에서 해당 리스트를 삭제함
             items.remove(at: (indexPath as NSIndexPath).row)
             itemsImageFile.remove(at: (indexPath as NSIndexPath).row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -76,6 +79,7 @@ class TableViewController: UITableViewController {
         }    
     }
     
+    //삭제 시 "Delete" 대신 "삭제"로 표시
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "삭제"
     }
@@ -83,6 +87,7 @@ class TableViewController: UITableViewController {
 
     
     // Override to support rearranging the table view.
+    //목록 순서 바꾸기
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         let itemToMove = items[(fromIndexPath as NSIndexPath).row]
         let itemImageToMove = itemsImageFile[(fromIndexPath as NSIndexPath).row]
@@ -105,6 +110,7 @@ class TableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //세그웨이를 이용하여 디테일 뷰로 전환하기
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
